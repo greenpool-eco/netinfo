@@ -1,0 +1,23 @@
+{
+  "name": "netinfo",
+  "version": "1.0.0",
+  "description": "Auto update using GitHub Actions and GitHub Pages every 30 minutes",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "start": "node ./index.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/greenpool-eco/netinfo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/greenpool-eco/netinfo/issues"
+  },
+  "homepage": "https://github.com/greenpool-eco/netinfo#readme"
+}
