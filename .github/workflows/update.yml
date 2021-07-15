@@ -1,0 +1,21 @@
+name: update-data
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron:  '15 */2 * * *'
+
+jobs:
+  download-and-commit:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        ref: ${{ github.head_ref }}
+
+    - run: curl https://chianetspace.azurewebsites.net/data/summary > ./docs/summary.json
+    - uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: Update JSON info files
+        file_pattern: docs/*.json
