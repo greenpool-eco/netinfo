@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>NetInfo Summary</title>
+</head>
+
+<body>
+    <h1>NetInfo Summary</h1>
+    <h2>Download</h2>
+    <a href="./summary.json" target="_blank" download>summary.json</a>
+    <h2>Preview</h2>
+    <button id="preview-open">Show</button>
+    <div id="content">
+    </div>
+    <script>
+        (function () {
+            const contentEl = document.getElementById("content");
+            const buttonEl = document.getElementById("preview-open");
+            function niPreviewFailure(err) {
+                console.error(err.message);
+                contentEl.innerHTML = "<strong>Unable to show preview :( Details: " + err.message + "</strong>";
+            }
+            function niPreview(json) {
+                contentEl.innerHTML = "<pre>" + JSON.stringify(json, undefined, "\t") + "</pre>";
+            }
+            function niHandleClick() {
+                buttonEl.attributes.disabled = true;
+                buttonEl.innerText = "Update";
+                buttonEl.removeEventListener("click", niHandleClick);
+                contentEl.innerText = "Loading...";
+                fetch("./summary.json")
+                    .then((response) => response.json())
+                    .then(niPreview)
+                    .catch(niPreviewFailure)
+                    .then(() => {
+                        delete buttonEl.attributes.disabled;
+                        buttonEl.addEventListener("click", niHandleClick);
+                    });
+            }
+            buttonEl.addEventListener("click", niHandleClick);
+        }());
+    </script>
+</body>
+
+</html>
