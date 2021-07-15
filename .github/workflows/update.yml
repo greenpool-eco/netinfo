@@ -15,9 +15,8 @@ jobs:
         ref: ${{ github.head_ref }}
     - uses: actions/setup-node@v1
       with:
-        node-version: '14.x'
-    - run: chmod +x ./index.mjs
-    - run: curl -s https://chianetspace.azurewebsites.net/data/summary | ./index.mjs > ./docs/summary.json
+        node-version: '16.x'
+    - run: curl -sf https://chianetspace.azurewebsites.net/data/summary | ./transform.mjs chianetspace > ./docs/summary.json
     - uses: stefanzweifel/git-auto-commit-action@v4
       with:
         commit_message: Update JSON info files
